@@ -1,13 +1,30 @@
+const Admin = require('../../model/staff/Admin');
+
 // @desc Admin Register
 // @route POST /api/admins/register
 // @access private
 
-exports.adminRegisterCtlr = (req, res) => {
+exports.adminRegisterCtlr = async (req, res) => {
+  const { name, email, password } = req.body;
   try {
-    res.json({
+    const foundAdmin = await Admin.findOne({ email });
+    if (foundAdmin) {
+      return res.json({
+        message: "Admin already exist!"
+      })
+    }
+
+    const user = await Admin.create({
+      name,
+      email,
+      password
+    });
+
+    return res.json({
       status: 'success',
-      data: 'Admin has been registered!'
+      data: user
     })
+
   } catch (error) {
     res.json({
       status: 'failed',
@@ -21,12 +38,18 @@ exports.adminRegisterCtlr = (req, res) => {
 // @route POST /api/admins/login
 // @access private
 
-exports.adminLoginCtlr = (req, res) => {
+exports.adminLoginCtlr = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    res.json({
-      status: 'success',
-      data: 'Admin has been Login!'
-    })
+    const user = await Admin.findOne({ email: email });
+    if (!user) {
+      return res.json({ message: "User not found for this email" })
+    }
+    if (user && await user.verifyPassword(password)) {
+      return res.json({ data: user })
+    } else {
+      return res.json({ message: "Invalid user credentials" })
+    }
   } catch (error) {
     res.json({
       status: 'failed',

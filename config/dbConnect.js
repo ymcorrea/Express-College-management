@@ -8,9 +8,6 @@ const dbConnect = async () => {
   } catch (error) {
     console.log("Database connection error: " + error.message);
   }
-}
+};
 
-dbConnect()
-
-// Q1nWXfZACDXXsO7F
-// said7388
+dbConnect(); 
