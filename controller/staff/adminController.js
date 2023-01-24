@@ -1,5 +1,6 @@
 const AsyncHandler = require('express-async-handler');
 const Admin = require('../../model/staff/Admin');
+const generateToken = require('../../utils/generateToken');
 
 // @desc Admin Register
 // @route POST /api/admins/register
@@ -31,212 +32,139 @@ exports.adminRegisterCtlr = AsyncHandler(async (req, res) => {
 // @route POST /api/admins/login
 // @access private
 
-exports.adminLoginCtlr = async (req, res) => {
+exports.adminLoginCtlr = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  try {
-    const user = await Admin.findOne({ email: email });
-    if (!user) {
-      return res.json({ message: "User not found for this email" })
-    }
-    if (user && await user.verifyPassword(password)) {
-      return res.json({ data: user })
-    } else {
-      return res.json({ message: "Invalid user credentials" })
-    }
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
+  const user = await Admin.findOne({ email: email });
+  if (!user) {
+    return res.json({ message: "User not found for this email" })
   }
-}
+  if (user && await user.verifyPassword(password)) {
+    return res.json({ data: generateToken(user._id) })
+  } else {
+    return res.json({ message: "Invalid user credentials" })
+  }
+})
 
 
 // @desc Get All Admin
 // @route GET /api/admins/
 // @access private
 
-exports.getAllAdminCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Get all admins'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
-}
+exports.getAllAdminCtlr = AsyncHandler(async (req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Get all admins'
+  })
+})
 
 
 // @desc Get Single Admin
 // @route GET /api/admins/:id
 // @access private
 
-exports.getSingleAdminCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Get single admins'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
-}
+exports.getSingleAdminCtlr = AsyncHandler((req, res) => {
+  console.log(req.userAuth);
+  res.json({
+    status: 'success',
+    data: 'Get single admins'
+  })
+
+})
 
 
 // @desc Update Single Admin
 // @route PUT /api/admins/:id
 // @access private
 
-exports.updateAdminCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Update single admins'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
-}
+exports.updateAdminCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Update single admins'
+  })
+
+})
 
 
 // @desc Delete Single Admin
 // @route DELETE /api/admins/:id
 // @access private
 
-exports.deleteAdminCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Delete single admin'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
-}
+exports.deleteAdminCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Delete single admin'
+  })
+
+})
 
 
 // @desc Admin suspending teacher
 // @route PUT api/admins/suspend/teacher/:id
 // @access private
 
-exports.adminSuspendTeacherCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Admin suspending teacher'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
+exports.adminSuspendTeacherCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Admin suspending teacher'
+  })
 }
-
+)
 
 // @desc Admin Unsuspending teacher
 // @route PUT api/admins/unsuspend/teacher/:id
 // @access private
 
-exports.adminUnsuspendTeacherCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Admin Unsuspending teacher'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
+exports.adminUnsuspendTeacherCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Admin Unsuspending teacher'
+  })
 }
-
+)
 
 // @desc Admin Withdrawing teacher
 // @route PUT api/admins/withdraw/teacher/:id
 // @access private
 
-exports.adminWithdrawTeacherCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Admin Withdrawing teacher'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
+exports.adminWithdrawTeacherCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Admin Withdrawing teacher'
+  })
 }
-
+)
 
 // @desc Admin Unwithdrawing teacher
 // @route PUT api/admins/unwithdraw/teacher/:id
 // @access private
 
-exports.adminUnwithdrawTeacherCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Admin Unithdrawing teacher'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
+exports.adminUnwithdrawTeacherCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Admin Unithdrawing teacher'
+  })
 }
-
-
+)
 // @desc Admin Published exam
 // @route PUT api/admins/publish/exam/:id
 // @access private
 
-exports.adminPublishedExamCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Admin Published exam'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
+exports.adminPublishedExamCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Admin Published exam'
+  })
 }
-
+)
 
 // @desc Admin Unpublished exam
 // @route PUT api/admins/unpublish/exam/:id
 // @access private
 
-exports.adminUnpublishedExamCtlr = (req, res) => {
-  try {
-    res.json({
-      status: 'success',
-      data: 'Admin UnPublished exam'
-    })
-  } catch (error) {
-    res.json({
-      status: 'failed',
-      error: error.message
-    })
-  }
-}
+exports.adminUnpublishedExamCtlr = AsyncHandler((req, res) => {
+  res.json({
+    status: 'success',
+    data: 'Admin UnPublished exam'
+  })
+
+})
