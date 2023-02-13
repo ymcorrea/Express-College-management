@@ -18,7 +18,7 @@ adminRouter.get('/', isLogin, isAdmin, getAllAdminCtlr)
 adminRouter.get('/profile', isLogin, getAdminProfileCtlr)
 
 // Update Admin
-adminRouter.put('/:id', updateAdminCtlr)
+adminRouter.put('/', isLogin, updateAdminCtlr)
 
 // Delete Admin
 adminRouter.delete('/:id', deleteAdminCtlr)

@@ -1,6 +1,7 @@
 const AsyncHandler = require('express-async-handler');
 const Admin = require('../../model/staff/Admin');
 const generateToken = require('../../utils/generateToken');
+const { hashPassword, isPasswordMatched } = require('../../utils/hashPassword');
 
 // @desc Admin Register
 // @route POST /api/admins/register
@@ -19,7 +20,7 @@ exports.adminRegisterCtlr = AsyncHandler(async (req, res) => {
   const user = await Admin.create({
     name,
     email,
-    password
+    password: await hashPassword(password),
   });
 
   return res.status(201).json({
@@ -37,17 +38,20 @@ exports.adminRegisterCtlr = AsyncHandler(async (req, res) => {
 exports.adminLoginCtlr = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await Admin.findOne({ email: email }).select('-createdAt -updatedAt -__v');
+
   if (!user) {
     return res.json({ message: "User not found for this email" })
   }
-  if (user && await user.verifyPassword(password)) {
+  const isMatched = await isPasswordMatched(password, user.password);
+
+  if (!isMatched) {
+    return res.json({ message: "Invalid user credentials" });
+  } else {
     return res.json({
       profile: user,
       token: generateToken(user._id),
       message: "Admin Login Succesfully"
-    })
-  } else {
-    return res.json({ message: "Invalid user credentials" })
+    });
   }
 })
 
@@ -90,8 +94,24 @@ exports.getAdminProfileCtlr = AsyncHandler(async (req, res) => {
 // @access private
 
 exports.updateAdminCtlr = AsyncHandler(async (req, res) => {
+  const { email, name, password } = req.body;
+  const emailExists = await Admin.findOne({ email: email });
 
-})
+  if (emailExists) {
+    throw new Error("This email already exists!");
+  } else {
+    const admin = await Admin.findByIdAndUpdate(
+      req.userAuth?.id,
+      { email, password: await hashPassword(password), name },
+      { new: true, runValidators: true }
+    );
+    res.status(200).json({
+      status: "Success",
+      data: admin,
+      message: "Admin updated successfully!"
+    })
+  }
+});
 
 
 // @desc Delete Single Admin
