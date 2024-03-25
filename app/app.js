@@ -17,7 +17,7 @@ app.use('/api/admins', adminRouter)
 // })
 
 // === Error Middlewares ===
-app.use(notFoundErrorHandler)
+app.use(notFoundErrorHandler) 
 app.use(globalErrorHandler)
 
 
