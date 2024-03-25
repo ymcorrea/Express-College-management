@@ -10,7 +10,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // === Routes ===
-app.use('/api/admins', adminRouter)
+app.use('/api/admins', adminRouter) 
 
 // app.use('/', (req, res) => {
 //   res.status(200).send('Welcome to Schoole management!')
