@@ -23,7 +23,7 @@ adminRouter.put('/', isLogin, updateAdminCtlr)
 // Delete Admin
 adminRouter.delete('/:id', deleteAdminCtlr)
 
-// Admin suspending teacher
+// Admin suspending teacher 
 adminRouter.put('/suspend/teacher/:id', adminSuspendTeacherCtlr)
 
 // Admin Unsuspending teacher

@@ -6,7 +6,7 @@ const app = express();
 const adminRouter = require('../routes/staff/adminRouter');
 
 // === Middlewares ===
-app.use(morgan('dev'));
+app.use(morgan('dev')); 
 app.use(express.json());
 
 // === Routes ===

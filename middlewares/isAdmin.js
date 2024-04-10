@@ -8,7 +8,7 @@ const isAdmin = async (req, res, next) => {
     next()
   } else {
     next(new Error("Access denied, Admin only"));
-  }
+  } 
 
 }
 

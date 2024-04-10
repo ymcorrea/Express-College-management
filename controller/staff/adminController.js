@@ -4,7 +4,7 @@ const generateToken = require('../../utils/generateToken');
 const { hashPassword, isPasswordMatched } = require('../../utils/hashPassword');
 
 // @desc Admin Register
-// @route POST /api/admins/register
+// @route POST /api/admins/register 
 // @access private
 
 exports.adminRegisterCtlr = AsyncHandler(async (req, res) => {

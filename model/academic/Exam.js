@@ -14,7 +14,7 @@ const examSchema = new Schema(
       required: true,
     },
     subject: {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId, 
       ref: "Subject",
       required: true,
     },

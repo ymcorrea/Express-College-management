@@ -21,7 +21,7 @@ const teacherSchema = new mongoose.Schema(
       type: String,
       required: true,
       default: function () {
-        return (
+        return ( 
           "TEA" +
           Math.floor(100 + Math.random() * 900) +
           Date.now().toString().slice(2, 4) +

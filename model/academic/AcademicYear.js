@@ -11,7 +11,7 @@ const academicYearSchema = new mongoose.Schema(
       required: true,
     },
     toYear: {
-      type: Date,
+      type: Date, 
       required: true,
     },
     isCurrent: {

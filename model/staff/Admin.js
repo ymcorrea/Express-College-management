@@ -19,7 +19,7 @@ const adminSchema = new mongoose.Schema(
       type: String,
       default: "admin",
     },
-    academicTerms: [
+    academicTerms: [ 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "AcademicTerm",

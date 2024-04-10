@@ -15,7 +15,7 @@ const examResultSchema = new Schema(
       ref: "Exam",
       required: true,
     },
-    grade: {
+    grade: { 
       type: Number,
       required: true,
     },
