@@ -12,7 +12,7 @@ exports.adminRegisterCtlr = AsyncHandler(async (req, res) => {
   const foundAdmin = await Admin.findOne({ email });
 
   if (foundAdmin) {
-    return res.json({
+    return res.json({ 
       message: "Admin already exist!"
     })
   }

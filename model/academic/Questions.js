@@ -20,7 +20,7 @@ const questionSchema = new Schema(
     optionC: {
       type: String,
       required: true,
-    }, 
+    },  
     optionD: {
       type: String,
       required: true,

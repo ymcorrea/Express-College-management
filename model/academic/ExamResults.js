@@ -12,7 +12,7 @@ const examResultSchema = new Schema(
     },
     exam: {
       type: Schema.Types.ObjectId,
-      ref: "Exam",
+      ref: "Exam", 
       required: true,
     },
     grade: { 

@@ -11,7 +11,7 @@ const examSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+      required: true, 
     },
     subject: {
       type: Schema.Types.ObjectId, 

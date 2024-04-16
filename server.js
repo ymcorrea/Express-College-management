@@ -8,6 +8,6 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 // Run the server
-server.listen(PORT, () => {
+server.listen(PORT, () => { 
   console.log("Server is listening on port " + PORT)
 });

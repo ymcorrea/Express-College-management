@@ -11,4 +11,4 @@ const verifyToken = (token) => {
   })
 }
 
-module.exports = verifyToken; 
+module.exports = verifyToken;    

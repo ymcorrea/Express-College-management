@@ -5,7 +5,7 @@ const notFoundErrorHandler = require('../middlewares/notFoundHandler');
 const app = express();
 const adminRouter = require('../routes/staff/adminRouter');
 
-// === Middlewares ===
+// === Middlewares === 
 app.use(morgan('dev')); 
 app.use(express.json());
 

@@ -9,4 +9,4 @@ exports.hashPassword = async (password) => {
 
 exports.isPasswordMatched = async (password, hash) => {
   return await bcrypt.compare(password, hash);
-} 
+}  

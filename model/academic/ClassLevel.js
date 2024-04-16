@@ -10,7 +10,7 @@ const ClassLevelSchema = new Schema(
       required: true,
     },
     description: {
-      type: String,
+      type: String, 
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId, 

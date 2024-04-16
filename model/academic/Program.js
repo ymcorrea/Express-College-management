@@ -15,7 +15,7 @@ const ProgramSchema = new Schema(
     duration: {
       type: String,
       required: true,
-      default: "4 years",
+      default: "4 years", 
     }, 
     // created automatically
     //CSFTY

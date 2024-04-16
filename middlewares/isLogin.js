@@ -13,7 +13,7 @@ const isLogin = async (req, res, next) => {
     const admin = await Admin.findById(verifiedToken.id).select("name email role");
     req.userAuth = admin; // Save user to req.obj
     next(); 
-  } else {
+  } else { 
     const err = new Error("Token expired or invalid");
     next(err);
   }
